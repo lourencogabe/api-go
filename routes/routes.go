@@ -9,6 +9,6 @@ import (
 
 func HandleResquest() {
 	http.HandleFunc("/", controllers.Home)
-	http.HandleFunc("/list/users", controllers.ListUsers)
+	http.HandleFunc("/list/users", controllers.GetUsers)
 	log.Fatal(http.ListenAndServe(":8000", nil))
 }
