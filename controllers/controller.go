@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
+	"github.com/lourencogabe/api-go/database"
 	"github.com/lourencogabe/api-go/models"
 )
 
@@ -15,7 +16,9 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(models.Users)
+	var users []models.User
+	database.DB.Find(&users)
+	json.NewEncoder(w).Encode(users)
 }
 
 func GetUserId(w http.ResponseWriter, r *http.Request) {
