@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -14,7 +15,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Home Page")
 }
 
-func GetUsers(w http.ResponseWriter, r *http.Request) {
+func ListUsers(w http.ResponseWriter, r *http.Request) {
 	var users []models.User
 	database.DB.Find(&users)
 	json.NewEncoder(w).Encode(users)
@@ -36,6 +37,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	json.NewDecoder(r.Body).Decode(&newUser)
 
 	database.DB.Create(&newUser)
+	log.Print("Usuário Criado com sucesso!")
 }
 
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
@@ -57,4 +59,5 @@ func EditUser(w http.ResponseWriter, r *http.Request) {
 	json.NewDecoder(r.Body).Decode(&user)
 	database.DB.Save(&user)
 	json.NewEncoder(w).Encode(user)
+	log.Print("Usuário Editado com sucesso!")
 }
